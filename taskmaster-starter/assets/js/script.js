@@ -264,7 +264,6 @@ var auditTask = function(taskEl) {
     .find("span")
     .text()
     .trim()
-  console.log(date);
 
   //convert to moment object at 5:00pm
   var time = moment(date, "L").set("hour", 17);
@@ -280,6 +279,14 @@ var auditTask = function(taskEl) {
     $(taskEl).addClass("list-group-item-warning");
   }
 }
+
+//timer for automatic auditing of tasks
+var timeInterval = setInterval(function() {
+    $(".card .list-group-item").each(function(index, el){
+        auditTask(el);
+      });
+
+  }, 30*60*1000);
 
 // load tasks for the first time
 loadTasks();
